@@ -1,0 +1,65 @@
+{
+  "name": "dsh-workbuddy-daily",
+  "version": "0.1.0",
+  "displayName": "WorkBuddy 每日积分领取",
+  "description": "DSH 启动时在后台自动领取 WorkBuddy 积分：每日签到、猫猫旅行、连登档位、成长任务奖励。已完成则跳过，不重复请求。Claims the daily check-in, cat-travel rewards, streak tiers and growth-task rewards once per launch, in the background, and only when the upstream still reports them as unclaimed — a completed day costs a few read-only status calls and nothing else.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "locale",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "workbuddy",
+    "checkin",
+    "credits",
+    "automation"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.1 <5.0.0",
+    "@deepseek-ai/schemastery": ">=3.18.1 <4.0.0",
+    "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": { "optional": true },
+    "@deepseek-ai/schemastery": { "optional": true },
+    "react": { "optional": true }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-locale"
+      ],
+      "platform": "web"
+    },
+    "compatibility": {
+      "dsh": ">=0.1.7-rc.1"
+    }
+  },
+  "dshhub": {
+    "schemaVersion": 1,
+    "displayName": "dsh-workbuddy-daily",
+    "summary": "DSH 启动时后台自动领取签到、猫猫旅行、连登档位和成长任务奖励；已完成则跳过，不重复请求。",
+    "categories": ["自动化", "费用", "Web UI"],
+    "surfaces": ["host", "web"]
+  }
+}
